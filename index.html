@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Ice-Cream Shop
+        </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+            crossorigin="anonymous">
+
+        <script  src="https://code.jquery.com/jquery-3.4.1.js"   
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="   
+            crossorigin="anonymous"> 
+        </script>
+
+        <script   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous">
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+             crossorigin="anonymous">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+             crossorigin="anonymous">
+        </script>
+
+        <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+
+
+        <link rel="stylesheet" href="./assets/static/css/style.css"> 
+
+        <script type="text/javascript" src="./assets/static/javascript/factory.js"></script>   
+
+        <script type="text/javascript" src="./assets/static/javascript/firebase.js"></script>    
+ 
+    </head>
+    <body>
+        <div class="container-fluid p-0">
+        <span class="top">
+            <div class="row">
+                <div class="col-12 pt-3  p-4 title text-center position-fixed border-bottom">
+                    <a href="./index.html">
+                        <h2>ICE-CREAM FACTORY</h2>
+                    </a>
+                </div>
+            </div>
+            <div class="row mt-4 ml-2 ml-xl-4 pl-2 pl-md-2 pl-lg-4 pt-5 position-relative border-bottom bg-light">
+                <label for="nutrition" class="nutrition ml-5 pt-5 pb-3">Click below for nutritional information.</label>
+            </div>
+            <div id="nutrition" class="row ml-5">
+                <div class="col-2 pt-4 text-center">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark mt-4 pt-2 pb-1" data-toggle="modal" data-target="#small-nutrition">
+                        <h5>small</h5>
+                    </button>
+                    <br>
+                    <label for="cone-1"> 1 scoop </label>
+                </div>
+                <div class="col-2 ml-4 pt-4 text-center"> 
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark mt-4 pt-2 pb-1" data-toggle="modal" data-target="#medium-nutrition">
+                        <h5>medium</h5>
+                    </button>
+                    <br>
+                    <label for="cone-2"> 2 scoops </label>
+                </div>
+                <div class="col-2 ml-4 pt-4 text-center">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark mt-4 pt-2 pb-1" data-toggle="modal" data-target="#large-nutrition">
+                        <h5>large</h5>
+                    </button>
+                    <br>
+                    <label for="cone-3"> 3 scoops </label>
+                </div>
+                <div class="col-4 pt-5 pl-4 pb-3 text text-center">
+                        <h3>Drag and Drop your items into the shopping bag!</h3>
+                </div>
+                
+            </div>
+            <hr class="ml-2">
+            <div class="row m-2 mt-5 position-relative">
+                <div class="col-2 ml-4 pt-4 cone cone-1 text-center">
+                        <img draggable="false" id="small-cone" title="Small Cone" class="m-2 size" src="./assets/static/images/icecream.png">
+                </div>
+                <div class="col-2 ml-4 pt-4 cone cone-2 text-center">
+                        <img draggable="false" id="medium-cone" title="Medium Cone" class="m-2 size" src="./assets/static/images/icecream-cone-2.png">
+                </div>
+                <div class="col-2 ml-4 pt-4 cone cone-3 text-center">
+                        <img draggable="false" id="large-cone" title="Large Cone" class="m-2 size" src="./assets/static/images/icecream-cone-3.png">
+                </div>
+                <div class="col-4 pl-5 cart bounce-4 text-center">
+                        <img draggable="false" id="cart" title="Drop items here" class="ml-2" src="./assets/static/images/empty-bag.png">
+                        <a href="#" ><span title="View shopping bag" class="cart bounce-4 counter counter-shake position-absolute border rounded-circle text-center pt-1 inactive">0</span></a> 
+                </div>
+            </div>
+        </span>
+            <div class="row m-2">
+                <div class="col-2 ml-4 mt-3 pt-4 cup cup-1 text-center">
+                        <img draggable="false" id="small-cup" title="Small Cup" class="m-2 size" src="./assets/static/images/bowl-1.tiff">
+                </div>
+                <div class="col-2 ml-4 mt-3 pt-4 cup cup-2 text-center">
+                        <img draggable="false" id="medium-cup" title="Medium Cup" class="m-2 size" src="./assets/static/images/bowl-2.tiff">
+                </div>
+                <div class="col-2 ml-4 mt-3 pt-4 cup cup-3 text-center">
+                        <img draggable="false" id="large-cup" title="Large Cup" class="m-2 size" src="./assets/static/images/bowl-3.tiff">
+                </div>
+                <div class="col-4 pt-5 mt-3 pl-5 text-center">
+                        <h5 class="text">Next, choose you flavors!</h5>
+                        <a class="link next-link-inactive" href="">
+                            <img draggable="false" title="Choose you flavor" class="m-2 next next-inactive" src="./assets/static/images/next.png">
+                        </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10 pt-5 pl-5 footer position-fixed text-center">
+                    Copyright &copy;
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="small-nutrition" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Nutritional Facts:</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col m-2 ml-3">
+                                <p>
+                                    <h6>&nbsp;&nbsp;&nbsp;&nbsp;size:&nbsp;&nbsp;&nbsp;&nbsp;SMALL</h6>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-5 m-2">
+                                <p>
+                                    <h6>container:&nbsp;&nbsp;&nbsp;&nbsp;Cone</h6>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-5 m-2 pl-5">
+                                <p>
+                                    <h6>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;
+                                        Cup
+                                    </h6>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="medium-nutrition" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Nutritional Facts:</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col m-2 ml-3">
+                                <p>
+                                    <h6>&nbsp;&nbsp;&nbsp;&nbsp;size:&nbsp;&nbsp;&nbsp;&nbsp;MEDIUM</h6>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-5 m-2">
+                                <p>
+                                    <h6>container:&nbsp;&nbsp;&nbsp;&nbsp;Cone</h6>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-5 m-2 pl-5">
+                                <p>
+                                    <h6>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;
+                                        Cup
+                                    </h6>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="large-nutrition" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Nutritional Facts:</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col m-2 ml-3">
+                                <p>
+                                    <h6>&nbsp;&nbsp;&nbsp;&nbsp;size:&nbsp;&nbsp;&nbsp;&nbsp;LARGE</h6>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-5 m-2">
+                                <p>
+                                    <h6>container:&nbsp;&nbsp;&nbsp;&nbsp;Cone</h6>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-5 m-2 pl-5">
+                                <p>
+                                    <h6>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;
+                                        Cup
+                                    </h6>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
